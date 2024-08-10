@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  wordpress:
+    image: luizeof/dockerpress:latest
+    environment:
+      - WORDPRESS_DB_HOST=db
+      - WORDPRESS_DB_PORT=3306
+      - WORDPRESS_DB_NAME=${WORDPRESS_DB_NAME}
+      - WORDPRESS_DB_USER=${WORDPRESS_DB_USER}
+      - WORDPRESS_DB_PASSWORD=${WORDPRESS_DB_PASSWORD}
+      - VIRTUAL_HOST=${VIRTUAL_HOST}
+      - ADMIN_EMAIL=${ADMIN_EMAIL}
+      - WP_LOCALE=${WP_LOCALE}
+      - WP_DEBUG=${WP_DEBUG}
+    volumes:
+      - wordpress_data:/var/www/html
+    ports:
+      - "59001:80"
+    depends_on:
+      - db
+      - redis
+    networks:
+      - wordpress_network
+
+  db:
+    image: mysql:latest
+    environment:
+      - MYSQL_DATABASE=${WORDPRESS_DB_NAME}
+      - MYSQL_USER=${WORDPRESS_DB_USER}
+      - MYSQL_PASSWORD=${WORDPRESS_DB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - wordpress_network
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 10 
+
+  redis:
+    image: redis:alpine
+    networks:
+      - wordpress_network
+
+volumes:
+  wordpress_data:
+  db_data:
+
+networks:
+  wordpress_network:
