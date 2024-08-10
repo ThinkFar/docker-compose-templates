@@ -12,7 +12,7 @@ services:
       - VIRTUAL_HOST=${VIRTUAL_HOST}
       - ADMIN_EMAIL=${ADMIN_EMAIL}
       - WP_LOCALE=${WP_LOCALE}
-      - WP_DEBUG=${WP_DEBUG}
+      - WP_DEBUG=false
     volumes:
       - wordpress_data:/var/www/html
     ports:
