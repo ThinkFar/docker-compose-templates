@@ -13,7 +13,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock  # Provides access to the Docker daemon.
     environment:
       - WATCHTOWER_POLL_INTERVAL=${WATCHTOWER_POLL_INTERVAL}  # Polling interval (seconds).
-      - WATCHTOWER_ROLLING_RESTART=${WATCHTOWER_ROLLING_RESTART}  # Enable rolling restarts.
       - WATCHTOWER_MONITOR_ONLY=${WATCHTOWER_MONITOR_ONLY}  # Monitor without auto-updating.
       - WATCHTOWER_LABEL_TAKE_PRECEDENCE=${WATCHTOWER_LABEL_TAKE_PRECEDENCE}  # Label settings precedence.
       - WATCHTOWER_HTTP_API_TOKEN=${WATCHTOWER_HTTP_API_TOKEN}  # Secure API token.
