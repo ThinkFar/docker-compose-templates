@@ -16,6 +16,7 @@ services:
       - WATCHTOWER_MONITOR_ONLY=${WATCHTOWER_MONITOR_ONLY}  # Monitor without auto-updating.
       - WATCHTOWER_LABEL_TAKE_PRECEDENCE=${WATCHTOWER_LABEL_TAKE_PRECEDENCE}  # Label settings precedence.
       - WATCHTOWER_HTTP_API_TOKEN=${WATCHTOWER_HTTP_API_TOKEN}  # Secure API token.
+      - WATCHTOWER_HTTP_API_PERIODIC_POLLS=${WATCHTOWER_HTTP_API_PERIODIC_POLLS}  # Set automatic polling.
     command: --debug --http-api-update  # Enable debug logging and HTTP API for manual updates.
 
   # Watchtower service specifically for monitoring and updating the 'portainer' container.
