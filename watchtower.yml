@@ -27,5 +27,4 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock  # Provides access to the Docker daemon.
     environment:
       - WATCHTOWER_POLL_INTERVAL=${WATCHTOWER_POLL_INTERVAL}  # Polling interval (seconds).
-      - WATCHTOWER_ROLLING_RESTART=${WATCHTOWER_ROLLING_RESTART}  # Enable rolling restarts.
     command: portainer --debug   # Limits monitoring and updating to the 'portainer' container only.
