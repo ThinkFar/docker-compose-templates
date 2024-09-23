@@ -6,27 +6,27 @@ services:
   watchtower:
     container_name: watchtower
     image: containrrr/watchtower
-    restart: always
+    restart: always  # Ensures the container is always running.
     ports:
-      - "59000:8080"
+      - "59000:8080"  # Maps port 59000 on the host to 8080 inside the container.
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock  # Provides access to the Docker daemon.
     environment:
-      - WATCHTOWER_POLL_INTERVAL=${WATCHTOWER_POLL_INTERVAL}
-      - WATCHTOWER_ROLLING_RESTART=${WATCHTOWER_ROLLING_RESTART}
-      - WATCHTOWER_MONITOR_ONLY=${WATCHTOWER_MONITOR_ONLY}
-      - WATCHTOWER_LABEL_TAKE_PRECEDENCE=${WATCHTOWER_LABEL_TAKE_PRECEDENCE}
-      - WATCHTOWER_HTTP_API_TOKEN=${WATCHTOWER_HTTP_API_TOKEN}
-    command: --debug --http-api-update
+      - WATCHTOWER_POLL_INTERVAL=${WATCHTOWER_POLL_INTERVAL}  # Polling interval (seconds).
+      - WATCHTOWER_ROLLING_RESTART=${WATCHTOWER_ROLLING_RESTART}  # Enable rolling restarts.
+      - WATCHTOWER_MONITOR_ONLY=${WATCHTOWER_MONITOR_ONLY}  # Monitor without auto-updating.
+      - WATCHTOWER_LABEL_TAKE_PRECEDENCE=${WATCHTOWER_LABEL_TAKE_PRECEDENCE}  # Label settings precedence.
+      - WATCHTOWER_HTTP_API_TOKEN=${WATCHTOWER_HTTP_API_TOKEN}  # Secure API token.
+    command: --debug --http-api-update  # Enable debug logging and HTTP API for manual updates.
 
   # Watchtower service specifically for monitoring and updating the 'portainer' container.
   watchtower-portainer:
     container_name: watchtower-portainer
     image: containrrr/watchtower
-    restart: always
+    restart: always  # Ensures the container is always running.
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock  # Provides access to the Docker daemon.
     environment:
-      - WATCHTOWER_POLL_INTERVAL=${WATCHTOWER_POLL_INTERVAL}
-      - WATCHTOWER_ROLLING_RESTART=${WATCHTOWER_ROLLING_RESTART}
-    command: portainer --debug
+      - WATCHTOWER_POLL_INTERVAL=${WATCHTOWER_POLL_INTERVAL}  # Polling interval (seconds).
+      - WATCHTOWER_ROLLING_RESTART=${WATCHTOWER_ROLLING_RESTART}  # Enable rolling restarts.
+    command: portainer --debug   # Limits monitoring and updating to the 'portainer' container only.
