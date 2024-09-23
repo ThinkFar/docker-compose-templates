@@ -6,27 +6,27 @@ services:
   watchtower:
     container_name: watchtower
     image: containrrr/watchtower
-    restart: always  # Ensures the container is always running.
+    restart: always
     ports:
-      - "59000:8080"  # Maps port 59000 on the host to 8080 inside the container.
+      - "59000:8080"
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock  # Provides access to the Docker daemon.
+      - /var/run/docker.sock:/var/run/docker.sock
     environment:
-      - WATCHTOWER_POLL_INTERVAL=10800  # 10,800 seconds (3 hours) polling interval.
-      - WATCHTOWER_ROLLING_RESTART=true  # Enables rolling restarts to avoid downtime.
-      - WATCHTOWER_MONITOR_ONLY=true  # Monitors containers but does not automatically update.
-      - WATCHTOWER_LABEL_TAKE_PRECEDENCE=true  # Container-specific settings via labels take precedence.
-      - WATCHTOWER_HTTP_API_TOKEN=b5e3abb8-fd7a-4db8-ba0c-182b409fad6c  # HTTP API token for secure communication.
-    command: --debug --http-api-update  # Enables debug logging and the HTTP API for manual updates.
+      - WATCHTOWER_POLL_INTERVAL=${WATCHTOWER_POLL_INTERVAL}
+      - WATCHTOWER_ROLLING_RESTART=${WATCHTOWER_ROLLING_RESTART}
+      - WATCHTOWER_MONITOR_ONLY=${WATCHTOWER_MONITOR_ONLY}
+      - WATCHTOWER_LABEL_TAKE_PRECEDENCE=${WATCHTOWER_LABEL_TAKE_PRECEDENCE}
+      - WATCHTOWER_HTTP_API_TOKEN=${WATCHTOWER_HTTP_API_TOKEN}
+    command: --debug --http-api-update
 
   # Watchtower service specifically for monitoring and updating the 'portainer' container.
   watchtower-portainer:
     container_name: watchtower-portainer
     image: containrrr/watchtower
-    restart: always  # Ensures the container is always running.
+    restart: always
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock  # Provides access to the Docker daemon.
+      - /var/run/docker.sock:/var/run/docker.sock
     environment:
-      - WATCHTOWER_POLL_INTERVAL=10800  # 10,800 seconds (3 hours) polling interval.
-      - WATCHTOWER_ROLLING_RESTART=true  # Enables rolling restarts to avoid downtime.
-    command: portainer --debug   # Limits monitoring and updating to the 'portainer' container only.
+      - WATCHTOWER_POLL_INTERVAL=${WATCHTOWER_POLL_INTERVAL}
+      - WATCHTOWER_ROLLING_RESTART=${WATCHTOWER_ROLLING_RESTART}
+    command: portainer --debug
