@@ -20,12 +20,12 @@ services:
     command: --debug --http-api-update  # Enable debug logging and HTTP API for manual updates.
 
   # Watchtower service specifically for monitoring and updating the 'portainer' container.
-  watchtower-portainer:
-    container_name: watchtower-portainer
-    image: containrrr/watchtower
-    restart: always  # Ensures the container is always running.
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock  # Provides access to the Docker daemon.
-    environment:
-      - WATCHTOWER_POLL_INTERVAL=${WATCHTOWER_POLL_INTERVAL}  # Polling interval (seconds).
-    command: portainer --debug   # Limits monitoring and updating to the 'portainer' container only.
+  # watchtower-portainer:
+  #   container_name: watchtower-portainer
+  #   image: containrrr/watchtower
+  #   restart: always  # Ensures the container is always running.
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock  # Provides access to the Docker daemon.
+  #   environment:
+  #     - WATCHTOWER_POLL_INTERVAL=${WATCHTOWER_POLL_INTERVAL}  # Polling interval (seconds).
+  #   command: portainer --debug   # Limits monitoring and updating to the 'portainer' container only.
