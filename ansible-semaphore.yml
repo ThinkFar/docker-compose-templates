@@ -2,8 +2,8 @@ services:
     semaphore_db:
         image: postgres
         environment:
-            POSTGRES_USER: ${POSTGRES_USER}
-            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+            POSTGRES_USER: ${SEMAPHORE_USER}
+            POSTGRES_PASSWORD: ${SEMAPHORE_PASSWORD}
             POSTGRES_DB: semaphore
         volumes:
             - semaphore_postgres:/var/lib/postgresql/data
@@ -11,18 +11,18 @@ services:
             - semaphore_network
     semaphore:
         ports:
-            - 59999:3000
+            - ${SEMAPHORE_PORT}:3000
         image: semaphoreui/semaphore:latest
         environment:
             SEMAPHORE_DB_DIALECT: postgres
             SEMAPHORE_DB_HOST: semaphore_db
             SEMAPHORE_DB_NAME: semaphore
-            SEMAPHORE_DB_USER: ${SEMAPHORE_DB_USER}
-            SEMAPHORE_DB_PASS: ${SEMAPHORE_DB_PASS}
-            SEMAPHORE_ADMIN: ${SEMAPHORE_ADMIN}
-            SEMAPHORE_ADMIN_PASSWORD: ${SEMAPHORE_ADMIN_PASSWORD}
-            SEMAPHORE_ADMIN_NAME: ${SEMAPHORE_ADMIN_NAME}
-            SEMAPHORE_ADMIN_EMAIL: ${SEMAPHORE_ADMIN_EMAIL}
+            SEMAPHORE_DB_USER: ${SEMAPHORE_USER}
+            SEMAPHORE_DB_PASS: ${SEMAPHORE_PASSWORD}
+            SEMAPHORE_ADMIN: ${SEMAPHORE_USER}
+            SEMAPHORE_ADMIN_PASSWORD: ${SEMAPHORE_PASSWORD}
+            SEMAPHORE_ADMIN_NAME: ${SEMAPHORE_USER}
+            SEMAPHORE_ADMIN_EMAIL: ${SEMAPHORE_EMAIL}
         volumes:
             - semaphore_data:/var/lib/semaphore
             - semaphore_config:/etc/semaphore
