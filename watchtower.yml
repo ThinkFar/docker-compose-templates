@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   
   # Watchtower service that monitors and updates all containers.
