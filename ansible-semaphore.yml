@@ -11,7 +11,7 @@ services:
             - semaphore_network
     semaphore:
         ports:
-            - ${SEMAPHORE_PORT}:3000
+            - "${SEMAPHORE_PORT}:3000"
         image: semaphoreui/semaphore:latest
         environment:
             SEMAPHORE_DB_DIALECT: postgres
