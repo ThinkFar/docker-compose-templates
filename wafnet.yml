@@ -1,0 +1,61 @@
+networks:
+  wafnet:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - gateway: 172.31.255.1
+          subnet: 172.31.255.0/24
+    driver_opts:
+      com.docker.network.bridge.name: wafnet
+
+services:
+  uuwaf:
+    image: swr.ap-southeast-1.myhuaweicloud.com/uusec/uuwaf:latest
+    container_name: uuwaf
+    restart: always
+    networks:
+      - wafnet
+    ports:
+      - "61001:80"
+      - "61002:443"
+      - "61003:4443"
+    volumes:
+      - wafshared:/uuwaf
+      - /etc/localtime:/etc/localtime:ro
+    command: ["/run.sh"]
+    environment:
+      - UUWAF_MYSQL_PASSWORD=${DB_PASSWORD}
+    depends_on:
+      wafdb:
+        condition: service_healthy
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 102400
+        hard: 102400
+
+  wafdb:
+    image: swr.ap-southeast-1.myhuaweicloud.com/uusec/percona-server:5.7
+    container_name: wafdb
+    restart: always
+    networks:
+      - wafnet
+    volumes:
+      - wafshared:/docker-entrypoint-initdb.d
+      - wafdata:/var/lib/mysql
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - INIT_ROCKSDB=true
+      - MYSQL_MAX_CONNECTIONS=512
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+    healthcheck:
+      test: ["CMD", "mysqladmin", "-uroot", "-p${DB_PASSWORD}", "ping", "-h", "127.0.0.1"]
+      start_period: 3s
+      interval: 5s
+      timeout: 3s
+      retries: 7
+
+volumes:
+  wafshared:
+  wafdata:
