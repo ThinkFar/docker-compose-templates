@@ -2,7 +2,6 @@ services:
   
   # Watchtower service that monitors and updates all containers.
   watchtower:
-    container_name: watchtower
     image: containrrr/watchtower
     restart: always  # Ensures the container is always running.
     ports:

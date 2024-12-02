@@ -12,7 +12,6 @@ networks:
 services:
   uuwaf:
     image: swr.ap-southeast-1.myhuaweicloud.com/uusec/uuwaf:latest
-    container_name: uuwaf
     restart: always
     networks:
       - wafnet
@@ -37,7 +36,6 @@ services:
 
   wafdb:
     image: swr.ap-southeast-1.myhuaweicloud.com/uusec/percona-server:5.7
-    container_name: wafdb
     restart: always
     networks:
       - wafnet

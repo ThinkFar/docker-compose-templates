@@ -1,7 +1,6 @@
 services:
   lxconsole:
     image: penninglabs/lxconsole:latest
-    container_name: lxconsole
     volumes:
       - certs:/opt/lxconsole/certs
       - instance:/opt/lxconsole/instance
