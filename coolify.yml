@@ -79,9 +79,10 @@ services:
       interval: 5s
       retries: 10
       timeout: 2s
-  redis:
+  redis:  
     image: redis:latest
-    command: redis-server --save 20 1 --loglevel warning --requirepass ${REDIS_PASSWORD}
+    command: >
+      sh -c "sysctl -w vm.overcommit_memory=1 && redis-server --save 20 1 --loglevel warning --requirepass ${REDIS_PASSWORD}"
     environment:
       REDIS_PASSWORD: "${REDIS_PASSWORD}"
     volumes:
