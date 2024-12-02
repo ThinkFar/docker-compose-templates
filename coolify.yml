@@ -80,15 +80,20 @@ services:
       retries: 10
       timeout: 2s
   redis:
-    image: bitnami/redis:latest
+    image: 'redis:alpine'
     environment:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
-      - ALLOW_EMPTY_PASSWORD=no
     volumes:
       - coolify-redis:/bitnami/redis
-    command: /opt/bitnami/scripts/redis/run.sh --maxmemory 512mb
-    sysctls:
-      - vm.overcommit_memory=1
+    command:
+      - redis-server
+      - "--save"
+      - "20"
+      - "1"
+      - "--loglevel"
+      - warning
+      - "--requirepass"
+      - ${REDIS_PASSWORD}
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 5s
