@@ -94,6 +94,7 @@ services:
       - warning
       - "--requirepass"
       - ${REDIS_PASSWORD}
+    privileged: true
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 5s
