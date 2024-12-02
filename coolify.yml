@@ -104,9 +104,6 @@ services:
     environment:
       APP_NAME: "${APP_NAME:-Coolify}"
       SOKETI_DEBUG: "${SOKETI_DEBUG:-false}"
-      SOKETI_DEFAULT_APP_ID
-      SOKETI_DEFAULT_APP_KEY
-      SOKETI_DEFAULT_APP_SECRET
     healthcheck:
       test: [ "CMD-SHELL", "wget -qO- http://127.0.0.1:6001/ready && wget -qO- http://127.0.0.1:6002/ready || exit 1" ]
       interval: 5s
