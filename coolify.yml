@@ -70,6 +70,7 @@ services:
       soketi:
         condition: service_healthy
   postgres:
+    image: postgres:latest
     volumes:
       - coolify-db:/var/lib/postgresql/data
     environment:
