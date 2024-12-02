@@ -17,9 +17,9 @@ services:
     networks:
       - wafnet
     ports:
-      - "61001:80"
-      - "61002:443"
-      - "61003:4443"
+      - "${PORT_HTTP}:80"
+      - "${PORT_HTTPS}:443"
+      - "${PORT_UI}:4443"
     volumes:
       - wafshared:/uuwaf
       - /etc/localtime:/etc/localtime:ro
