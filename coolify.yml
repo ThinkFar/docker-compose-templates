@@ -87,6 +87,8 @@ services:
     volumes:
       - coolify-redis:/bitnami/redis
     command: /opt/bitnami/scripts/redis/run.sh --maxmemory 512mb
+    sysctls:
+      - vm.overcommit_memory=1
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 5s
