@@ -86,14 +86,14 @@ services:
       - ALLOW_EMPTY_PASSWORD=no
     volumes:
       - coolify-redis:/bitnami/redis
-    command: /opt/bitnami/scripts/redis/run.sh --maxmemory 200mb
+    command: /opt/bitnami/scripts/redis/run.sh --maxmemory 512mb
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 5s
       retries: 10
       timeout: 2s
   soketi:
-    image: 'ghcr.io/coollabsio/coolify-realtime:1.0.4'
+    image: 'ghcr.io/coollabsio/coolify-realtime:latest'
     ports:
       - "${SOKETI_PORT:-6001}:6001"
       - "6002:6002"
