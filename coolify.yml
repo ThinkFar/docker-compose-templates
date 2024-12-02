@@ -86,6 +86,7 @@ services:
       - ALLOW_EMPTY_PASSWORD=no
     volumes:
       - coolify-redis:/bitnami/redis
+    command: /opt/bitnami/scripts/redis/run.sh --maxmemory 200mb
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 5s
