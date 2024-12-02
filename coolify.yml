@@ -79,16 +79,15 @@ services:
       interval: 5s
       retries: 10
       timeout: 2s
-  redis:  
-    image: redis:latest
-    command: >
-      sh -c "sysctl -w vm.overcommit_memory=1 && redis-server --save 20 1 --loglevel warning --requirepass ${REDIS_PASSWORD}"
+  redis:
+    image: bitnami/redis:latest
     environment:
-      REDIS_PASSWORD: "${REDIS_PASSWORD}"
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - ALLOW_EMPTY_PASSWORD=no
     volumes:
-      - coolify-redis:/data
+      - coolify-redis:/bitnami/redis
     healthcheck:
-      test: redis-cli ping
+      test: ["CMD", "redis-cli", "ping"]
       interval: 5s
       retries: 10
       timeout: 2s
