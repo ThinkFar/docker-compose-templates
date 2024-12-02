@@ -6,6 +6,8 @@ networks:
       config:
         - gateway: 172.31.255.1
           subnet: 172.31.255.0/24
+    driver_opts:
+      com.docker.network.bridge.name: wafnet
 
 services:
   uuwaf:
@@ -18,7 +20,7 @@ services:
       - "${PORT_HTTPS}:443"
       - "${PORT_UI}:4443"
     volumes:
-      - /portainer/Files/AppData/Config/uuwaf/data:/uuwaf
+      - wafshared:/uuwaf
       - /etc/localtime:/etc/localtime:ro
     command: ["/run.sh"]
     environment:
@@ -38,8 +40,8 @@ services:
     networks:
       - wafnet
     volumes:
-      - /portainer/Files/AppData/Config/uuwaf/initdb.d:/docker-entrypoint-initdb.d
-      - /portainer/Files/AppData/Config/uuwaf/mysql:/var/lib/mysql
+      - wafshared:/docker-entrypoint-initdb.d
+      - wafdata:/var/lib/mysql
       - /etc/localtime:/etc/localtime:ro
     environment:
       - INIT_ROCKSDB=true
@@ -51,3 +53,7 @@ services:
       interval: 5s
       timeout: 3s
       retries: 7
+
+volumes:
+  wafshared:
+  wafdata:
