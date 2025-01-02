@@ -16,8 +16,8 @@ services:
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USERNAME}"]
       interval: 30s
-      timeout: 10s
-      retries: 10
+      timeout: 60s
+      retries: 20
 
   kestra:
     image: kestra/kestra:latest
@@ -55,7 +55,7 @@ services:
               path: /tmp/kestra-wd/tmp
           url: ${KESTRA_URL}
     ports:
-      - "${KESTRA_PORT_MAIN}:8080"
+      - "${KESTRA_PORT_PRIMARY}:8080"
       - "${KESTRA_PORT_SECONDARY}:8081"
     depends_on:
       postgres:
