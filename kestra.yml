@@ -55,8 +55,8 @@ services:
               path: /tmp/kestra-wd/tmp
           url: ${KESTRA_URL}
     ports:
-      - "8080:8080"
-      - "8081:8081"
+      - "${KESTRA_PORT_MAIN}:8080"
+      - "${KESTRA_PORT_SECONDARY}:8081"
     depends_on:
       postgres:
         condition: service_started
