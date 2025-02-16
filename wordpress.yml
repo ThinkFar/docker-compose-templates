@@ -27,6 +27,11 @@ services:
       DB_NAME: ${DB_NAME} 
       WORDPRESS_SITE_URL: ${WP_SITE_URL}
       FS_METHOD: direct
+      PHP_VALUE_upload_max_filesize: ${UPLOAD_MAX_FILESIZE}
+      PHP_VALUE_post_max_size: ${POST_MAX_SIZE}
+      PHP_VALUE_memory_limit: ${MEMORY_LIMIT}
+      PHP_VALUE_max_execution_time: ${MAX_EXECUTION_TIME}
+      PHP_VALUE_max_input_time: ${MAX_INPUT_TIME}
       # Debugging options:
       WP_DEBUG: ${WP_DEBUG}
       WP_DEBUG_DISPLAY: ${WP_DEBUG_DISPLAY}
