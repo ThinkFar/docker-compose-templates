@@ -1,29 +1,41 @@
-services:  
-
-  wordpress:  
-    image: wordpress:latest
-    restart: always  
-    ports:  
-      - ${PORT}:80  
-    environment:  
-      WORDPRESS_DB_HOST: db  
-      WORDPRESS_DB_USER: ${DB_USER}  
-      WORDPRESS_DB_PASSWORD: ${DB_PASSWORD}  
-      WORDPRESS_DB_NAME: ${DB_NAME}  
-    volumes:  
-      - wordpress:/var/www/html  
-
-  db:  
-    image: mysql:latest  
-    restart: always  
-    environment:  
+services:
+  db:
+    image: mariadb:11
+    volumes:
+      - "db-data:/var/lib/mysql"
+    environment:
       MYSQL_DATABASE: ${DB_NAME}  
       MYSQL_USER: ${DB_USER}  
       MYSQL_PASSWORD: ${DB_PASSWORD}  
-      MYSQL_RANDOM_ROOT_PASSWORD: '1'  
-    volumes:  
-      - db:/var/lib/mysql  
+      # MYSQL_RANDOM_ROOT_PASSWORD: '1'
 
-volumes:  
-  wordpress:  
-  db:
+  wordpress:
+    depends_on:
+      - db
+    build: ./
+    volumes:
+      - "site-data:/var/www/wp-content"
+    ports:
+      - ${PORT}:80
+    environment:
+      DB_HOST: db
+      DB_USER: ${DB_USER}  
+      DB_PASSWORD: ${DB_PASSWORD}  
+      DB_NAME: ${DB_NAME} 
+      WORDPRESS_SITE_URL: ${WP_SITE_URL}
+      FS_METHOD: direct
+      # For debugging only:
+      WP_DEBUG: ${WP_DEBUG}
+      WP_DEBUG_DISPLAY: ${WP_DEBUG_DISPLAY}
+
+volumes:
+  db-data:
+  site-data:
+
+networks:
+  default:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.91.0/24
