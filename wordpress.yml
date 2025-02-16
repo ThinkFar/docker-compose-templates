@@ -1,5 +1,5 @@
 # Based on: https://github.com/TrafeX/docker-wordpress
-# 
+# Execute WP-CLI commands: docker exec <container name> /usr/local/bin/wp --path=/usr/src/wordpress <command>
 services:
   db:
     image: mariadb:11
