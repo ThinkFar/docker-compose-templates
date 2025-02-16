@@ -1,4 +1,5 @@
 # Based on: https://github.com/TrafeX/docker-wordpress
+# 
 services:
   db:
     image: mariadb:11
@@ -26,7 +27,7 @@ services:
       DB_NAME: ${DB_NAME} 
       WORDPRESS_SITE_URL: ${WP_SITE_URL}
       FS_METHOD: direct
-      # For debugging only:
+      # Debugging options:
       WP_DEBUG: ${WP_DEBUG}
       WP_DEBUG_DISPLAY: ${WP_DEBUG_DISPLAY}
 
