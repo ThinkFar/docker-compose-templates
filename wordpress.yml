@@ -6,10 +6,10 @@ services:
     volumes:
       - "db-data:/var/lib/mysql"
     environment:
-      MYSQL_DATABASE: ${DB_NAME}  
-      MYSQL_USER: ${DB_USER}  
-      MYSQL_PASSWORD: ${DB_PASSWORD}  
-      # MYSQL_RANDOM_ROOT_PASSWORD: '1'
+      - MYSQL_DATABASE=${DB_NAME}  
+      - MYSQL_USER=${DB_USER}  
+      - MYSQL_PASSWORD=${DB_PASSWORD}  
+      # - MYSQL_RANDOM_ROOT_PASSWORD='1'
 
   wordpress:
     image: trafex/wordpress
@@ -21,20 +21,20 @@ services:
     ports:
       - ${PORT}:80
     environment:
-      DB_HOST: db
-      DB_USER: ${DB_USER}  
-      DB_PASSWORD: ${DB_PASSWORD}  
-      DB_NAME: ${DB_NAME} 
-      WORDPRESS_SITE_URL: ${WP_SITE_URL}
-      PHP_VALUE_upload_max_filesize: ${UPLOAD_MAX_FILESIZE}
-      PHP_VALUE_post_max_size: ${POST_MAX_SIZE}
-      PHP_VALUE_memory_limit: ${MEMORY_LIMIT}
-      PHP_VALUE_max_execution_time: ${MAX_EXECUTION_TIME}
-      PHP_VALUE_max_input_time: ${MAX_INPUT_TIME}
-      FS_METHOD: direct
+      - DB_HOST=db
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - WORDPRESS_SITE_URL=${WP_SITE_URL}
+      - PHP_VALUE_upload_max_filesize=${UPLOAD_MAX_FILESIZE}
+      - PHP_VALUE_post_max_size=${POST_MAX_SIZE}
+      - PHP_VALUE_memory_limit=${MEMORY_LIMIT}
+      - PHP_VALUE_max_execution_time=${MAX_EXECUTION_TIME}
+      - PHP_VALUE_max_input_time=${MAX_INPUT_TIME}
+      - FS_METHOD=direct
       # Debugging options:
-      WP_DEBUG: ${WP_DEBUG}
-      WP_DEBUG_DISPLAY: ${WP_DEBUG_DISPLAY}
+      - WP_DEBUG=${WP_DEBUG}
+      - WP_DEBUG_DISPLAY=${WP_DEBUG_DISPLAY}
 
 volumes:
   db-data:
