@@ -6,9 +6,9 @@ services:
     volumes:
       - "db-data:/var/lib/mysql"
     environment:
-      MARIADB_DATABASE: ${DB_NAME}  
-      MARIADB_USER: ${DB_USER}  
-      MARIADB_PASSWORD: ${DB_PASSWORD}  
+      MYSQL_DATABASE: ${DB_NAME}  
+      MYSQL_USER: ${DB_USER}  
+      MYSQL_PASSWORD: ${DB_PASSWORD}  
       # MYSQL_RANDOM_ROOT_PASSWORD: '1'
 
   wordpress:
