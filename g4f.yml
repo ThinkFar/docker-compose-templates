@@ -1,0 +1,16 @@
+services:
+  g4f:
+    image: hlohaus789/g4f:latest
+    container_name: g4f
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+      - "7900:7900"
+    shm_size: "2g"
+    volumes:
+      - g4f_har_and_cookies:/app/har_and_cookies
+      - g4f_generated_images:/app/generated_images
+
+volumes:
+  g4f_har_and_cookies:
+  g4f_generated_images:
