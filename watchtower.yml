@@ -5,7 +5,7 @@ services:
     image: containrrr/watchtower
     restart: always  # Ensures the container is always running.
     ports:
-      - "59000:8080"  # Maps port 59000 on the host to 8080 inside the container.
+      - "47778:8080"  # Maps port 47778 on the host to 8080 inside the container.
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock  # Provides access to the Docker daemon.
     environment:
